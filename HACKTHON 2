@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurrency Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Inventory Update Simulation</h1>
+    <button id="updateInventory">Update Inventory</button>
+    <div id="output"></div>
+
+    <script>
+        let isLocked = false;
+        let inventory = 10;
+
+        document.getElementById('updateInventory').addEventListener('click', function() {
+            if (isLocked) {
+                logMessage('Update in progress, please wait...');
+            } else {
+                isLocked = true;
+                logMessage('Updating inventory...');
+
+                // Simulate inventory update with a delay
+                setTimeout(() => {
+                    if (inventory > 0) {
+                        inventory--;
+                        logMessage('Inventory updated successfully! Remaining stock: ' + inventory);
+                    } else {
+                        logMessage('Update failed: Out of stock.');
+                    }
+                    isLocked = false;
+                }, 2000); // 2-second delay to simulate the process
+            }
+        });
+
+        function logMessage(message) {
+            const outputDiv = document.getElementById('output');
+            const newMessage = document.createElement('p');
+            newMessage.textContent = message;
+            outputDiv.appendChild(newMessage);
+        }
+    </script>
+
+</body>
+</html>
